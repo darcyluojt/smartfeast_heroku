@@ -1,4 +1,4 @@
-// The source code including full typescript support is available at: 
+// The source code including full typescript support is available at:
 // https://github.com/shakacode/react_on_rails_demo_ssr_hmr/blob/master/babel.config.js
 
 module.exports = function (api) {
@@ -17,7 +17,9 @@ module.exports = function (api) {
       ]
     ].filter(Boolean),
     plugins: [
-      process.env.WEBPACK_SERVE && 'react-refresh/babel',
+      // this line is replaced by the next line << suggestion from claude.ai
+      // process.env.WEBPACK_SERVE && 'react-refresh/babel',
+      !isProductionEnv && 'react-refresh/babel',
       isProductionEnv && ['babel-plugin-transform-react-remove-prop-types',
         {
           removeImport: true
