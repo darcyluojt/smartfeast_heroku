@@ -1,5 +1,5 @@
 class MealsController < ApplicationController
-
+  # skip_before_action :authenticate_user!
   def create
     # If user is logged in, use current_user, else create a guest user
     if current_user

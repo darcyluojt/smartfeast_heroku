@@ -11,3 +11,19 @@
 }
 
 */
+
+.text-brand-green {
+  color: #496F5D;
+}
+
+.text-brand-orange {
+  color: #F26D3D;
+}
+
+.bg-brand-orange {
+  background-color: #F26D3D;
+}
+
+.bg-brand-green {
+  background-color: #496F5D;;
+}
