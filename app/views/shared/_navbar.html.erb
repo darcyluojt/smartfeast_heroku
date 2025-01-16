@@ -1,0 +1,35 @@
+
+<nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200">
+  <div class="max-w-lg mx-auto px-4">
+    <div class="flex justify-between items-center relative">
+      <!-- Left section -->
+      <div class="flex space-x-4">
+        <%= link_to root_path, data: { turbo: false }, class: "flex flex-col items-center py-2 px-3 text-gray-600 hover:text-brand-green" do %>
+          <i class="fa-solid fa-house"></i><hr/>
+          <span class="text-xs mt-1">Discover</span>
+        <% end %>
+      </div>
+
+      <!-- Center Logo -->
+      <div class="absolute left-1/2 transform -translate-x-1/2 -translate-y-4">
+          <div class="rounded-full items-center flex flex-col">
+            <%= image_tag "logo.png", class: "h-10 w-10" %>
+            <div>
+             <span class="text-sm text-brand-green">Smart</span><span class="text-sm text-brand-orange">Feast</span>
+             </div>
+          </div>
+      </div>
+
+      <!-- Right section -->
+      <div class="flex space-x-4">
+        <!-- Add favorites and profile links -->
+        <%= link_to baskets_path, class: "flex flex-col items-center py-2 px-3 text-gray-600 hover:text-brand-green" do %>
+        <i class="fa-solid fa-kitchen-set"></i>
+          <span class="text-xs">Meal plan</span>
+        <% end %>
+
+
+      </div>
+    </div>
+  </div>
+</nav>

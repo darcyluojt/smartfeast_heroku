@@ -9,20 +9,20 @@
   },
   "babel": {
     "env": {
-    "development": {
-      "presets": [
-        "./node_modules/shakapacker/package/babel/preset.js"
-      ],
-      "plugins": [
-        "react-refresh/babel"
-      ]
-    },
-    "production": {
-      "presets": [
-        "./node_modules/shakapacker/package/babel/preset.js"
-      ]
+      "development": {
+        "presets": [
+          "./node_modules/shakapacker/package/babel/preset.js"
+        ],
+        "plugins": [
+          "react-refresh/babel"
+        ]
+      },
+      "production": {
+        "presets": [
+          "./node_modules/shakapacker/package/babel/preset.js"
+        ]
+      }
     }
-  }
   },
   "browserslist": [
     "defaults"
@@ -47,6 +47,7 @@
     "react-dom": "^19.0.0",
     "react-on-rails": "14.0.5",
     "react-redux": "^9.2.0",
+    "react-swipeable": "^7.0.2",
     "redux": "^5.0.1",
     "shakapacker": "8.0.2",
     "style-loader": "^4.0.0",

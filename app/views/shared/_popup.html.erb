@@ -1,0 +1,51 @@
+<div data-controller="popup" class="hideen relative z-50" aria-labelledby="popup-title" role="dialog" aria-modal="true">
+  <!-- Background backdrop -->
+  <div data-popup-target="backdrop"
+       class="fixed inset-0 bg-gray-500/75 transition-opacity ease-out duration-300 opacity-0"
+       aria-hidden="true"></div>
+
+  <div class="fixed inset-0 z-50 w-screen overflow-y-auto">
+    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+      <!-- Popup panel -->
+      <div data-popup-target="panel"
+           class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all ease-out duration-300 opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+        <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+          <div class="sm:flex sm:items-start">
+            <div class="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-orange-100 sm:mx-0 sm:size-10">
+              <span class="text-2xl">👨‍🍳</span>
+            </div>
+            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+              <h3 class="text-xl font-semibold leading-6 text-gray-900" id="popup-title">
+                Ready to discover delicious recipes? 🌟
+              </h3>
+              <div class="mt-4">
+                <ul class="space-y-4 text-sm text-gray-600">
+                  <li class="flex items-center">
+                    <span class="mr-2">👈</span>
+                    <span>Swipe left to explore more yummy recipes</span>
+                  </li>
+                  <li class="flex items-center">
+                    <span class="mr-2">👉</span>
+                    <span>Swipe right to add to your meal plan.</span>
+                  </li>
+                  <li class="flex items-center">
+                    <span class="mr-2">👆</span>
+                    <span>Tap to see all the delicious details</span>
+                  </li>
+                </ul>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+          <button type="button"
+                  class="inline-flex w-full justify-center rounded-md bg-brand-orange px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 sm:ml-3 sm:w-auto"
+                  data-action="click->popup#hide">
+            Let's Cook! 🍳
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

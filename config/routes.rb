@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   end
   resources :meals
   resources :baskets, only: [:index, :show]
-  get "hello" => "hello_world#index"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
