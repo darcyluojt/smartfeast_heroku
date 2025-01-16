@@ -7,6 +7,23 @@
     "node": "20.9.0",
     "yarn": "1.22.19"
   },
+  "babel": {
+    "env": {
+    "development": {
+      "presets": [
+        "./node_modules/shakapacker/package/babel/preset.js"
+      ],
+      "plugins": [
+        "react-refresh/babel"
+      ]
+    },
+    "production": {
+      "presets": [
+        "./node_modules/shakapacker/package/babel/preset.js"
+      ]
+    }
+  }
+  },
   "browserslist": [
     "defaults"
   ],
