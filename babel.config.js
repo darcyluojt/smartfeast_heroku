@@ -19,7 +19,7 @@ module.exports = function (api) {
     plugins: [
       // this line is replaced by the next line << suggestion from claude.ai
       // process.env.WEBPACK_SERVE && 'react-refresh/babel',
-      !isProductionEnv && 'react-refresh/babel',
+      (!isProductionEnv) && 'react-refresh/babel',
       isProductionEnv && ['babel-plugin-transform-react-remove-prop-types',
         {
           removeImport: true
