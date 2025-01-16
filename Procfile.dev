@@ -4,3 +4,4 @@ css: bin/rails tailwindcss:watch
 rails: bundle exec rails s -p 3000
 wp-client: bin/shakapacker-dev-server
 wp-server: SERVER_BUNDLE_ONLY=yes bin/shakapacker --watch
+web: bundle exec puma -C config/puma.rb
