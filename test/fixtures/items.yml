@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  basket: one
+  ingredient: one
+  bought: false
+  quantity: 9.99
+  bought_time: 2025-01-16 13:37:30
+  unit: MyString
+  meal_refs: 1
+
+two:
+  basket: two
+  ingredient: two
+  bought: false
+  quantity: 9.99
+  bought_time: 2025-01-16 13:37:30
+  unit: MyString
+  meal_refs: 1

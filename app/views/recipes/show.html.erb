@@ -1,0 +1,19 @@
+<div class="mx-auto px-4 w-11/12 max-w-md" style="min-height:85vh">
+  <div class="recipe_header space-y-6 py-8">
+    <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 text-center">
+      <%= @recipe.name %>
+    </h1>
+
+<%= image_tag @recipe.thumbnail, class: "w-48 md:w-56 lg:w-64 h-48 md:h-56 lg:h-64 mx-auto object-cover rounded-full shadow-md" %>
+</div>
+<div class="w-11/12 max-w-md">
+<ol class="space-y-4 list-none">
+  <% @steps.each_with_index do |step, index| %>
+    <li class="text-base md:text-lg leading-relaxed flex">
+      <span class="text-pink-500 mr-2"><%= index + 1 %>. </span>
+      <span class="text-gray-700"><%= step %></span>
+    </li>
+  <% end %>
+</ol>
+</div>
+</div>

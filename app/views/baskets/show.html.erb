@@ -1,0 +1,57 @@
+<!-- Container with responsive padding -->
+<div class="flex flex-col justify-center items-center" style="min-height:85vh">
+<div class="mx-auto px-4 pt-8">
+  <!-- Main heading with proper spacing and size -->
+  <h1 class="text-3xl font-bold mb-6 text-brand-green text-center">Your upcoming meals</h1>
+
+  <% if @meals.empty? %>
+    <!-- Empty state with styled message and button -->
+    <div class="text-center py-8">
+      <p class="text-gray-600 mb-4">You have no upcoming meals</p>
+      <%= link_to 'Plan your meals', root_path, data: { turbo: false }, class: "inline-block bg-brand-orange text-white px-6 py-2 rounded-lg hover:bg-brand-green transition duration-200" %>
+    </div>
+  <% else %>
+    <!-- Responsive grid for meal cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-4">
+      <% @meals.each do |meal| %>
+        <!-- Individual meal card with shadow and hover effect -->
+          <div class="relative bg-white rounded-lg shadow-md hover:shadow-lg transition duration-200">
+            <div class="relative h-48">
+              <%= image_tag meal.recipe.thumbnail,
+                  class: "absolute inset-0 w-full h-full object-cover rounded-t-lg" %>
+              </div>
+            <h2 class="text-lg font-semibold text-brand-green p-4 text-center">
+              <%= link_to meal.recipe.name, meal.recipe %>
+            </h2>
+            <div class="absolute bottom-4 right-2">
+              <%= link_to meal, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } do %>
+                <i class="fa-solid fa-trash text-gray-400"></i>
+              <% end %>
+            </div>
+          </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+  <!-- Basket section -->
+  <div class="basket mb-8" style="width: 300px">
+  <h2 class="text-2xl font-bold mt-12 mb-6 text-brand-green">Your basket</h2>
+  <!-- Styled ordered list -->
+  <% if @basket.items.empty? %>
+    <!-- Empty state with styled message and button -->
+    <div class="text-center py-8">
+      <p class="text-brand-green mb-4">Your basket is empty</p>
+    </div>
+  <% else %>
+    <%= form_for @basket do |f| %>
+      <% @basket_items.each do |item| %>
+        <div class="mb-2">
+          <%= check_box_tag "items[#{item.id}][bought]", true, item.bought %>
+          <%= item.ingredient.name %>
+        </div>
+      <% end %>
+      <%= f.submit class: "px-4 py-2 bg-brand-orange text-white rounded hover:bg-brand-green" %>
+    <% end %>
+    <% end %>
+</div>
+</div>

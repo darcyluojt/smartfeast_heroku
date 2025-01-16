@@ -61,5 +61,9 @@ group :test do
 end
 
 gem "tailwindcss-rails", "~> 3.2"
+gem 'httparty'
 gem "shakapacker"
 gem "react_on_rails", "14.0.5"
+gem "devise"
+gem "font-awesome-sass", "~> 6.7"
+gem "simple_form", github: "heartcombo/simple_form"
