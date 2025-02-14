@@ -11,7 +11,7 @@ require "json"
 require "open-uri"
 
 Recipe.destroy_all
-Ingredient.destroy_all
+# Ingredient.destroy_all
 Basket.destroy_all
 User.destroy_all
 # Profile.destroy_all
@@ -25,6 +25,7 @@ id.each do |i|
   full_url = url + i
   uri = URI.parse(full_url).read
   meals = JSON.parse(uri)["meals"][0]
+  estimation = OpenaiService.estimation(meals)
   name = meals["strMeal"]
   puts "Creating #{name}"
   instructions = meals["strInstructions"]
@@ -32,7 +33,7 @@ id.each do |i|
   category << meals["strCategory"]
   category << meals["strArea"]
   thumbnail = meals["strMealThumb"]
-  new_recipe = Recipe.new(name: name, steps: instructions, category: category, thumbnail: thumbnail)
+  new_recipe = Recipe.new(name: name, steps: instructions, category: category, thumbnail: thumbnail, calories: estimation[:calories], protein: estimation[:protein], servings: estimation[:servings])
   new_recipe.save
   puts "Created #{name}"
   # create recipe ingredients. However, if no ingredients are found, then create the ingredient first with usda api call
@@ -65,8 +66,7 @@ id.each do |i|
 
     end
     quantity = meals["strMeasure#{i}"]
-    unit = meals["strMeasure#{i}"].scan(/[a-zA-Z]+/).join
-    new_ingredient_recipe = IngredientsRecipe.new(recipe: new_recipe, ingredient: ingredient, quantity: quantity, unit: unit)
+    new_ingredient_recipe = IngredientsRecipe.new(recipe: new_recipe, ingredient: ingredient, quantity: quantity)
     new_ingredient_recipe.save
     puts "Added #{ingredient_name} to #{name}"
     i += 1

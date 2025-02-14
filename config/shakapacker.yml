@@ -19,6 +19,7 @@ development:
   <<: *default
   # This is false since we're running `bin/shakapacker -w` in Procfile.dev-static
   compile: false
+  # originally it was false
 
   # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:

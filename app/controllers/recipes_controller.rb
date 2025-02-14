@@ -2,7 +2,9 @@ class RecipesController < ApplicationController
   # skip_before_action :authenticate_user!
   def show
     @recipe = Recipe.find(params[:id])
-    @steps = @recipe.steps.split("\r\n").reject(&:blank?)
+    @steps = @recipe.steps.split(".\r\n").reject(&:blank?)
+    @ingredients = @recipe.as_json(include: {
+      ingredients_recipes: { include: :ingredient }})
   end
 
   def discover
