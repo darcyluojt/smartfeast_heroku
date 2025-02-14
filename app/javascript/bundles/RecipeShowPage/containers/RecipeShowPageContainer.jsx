@@ -1,17 +1,14 @@
-import React, { useContext } from 'react';
-import { IngredientsContext } from '../ingredientContext';
+import React from 'react';
 import IngredientList from '../components/IngredientList';
-// import SpecialRequest from '../components/SpecialRequest';
+import SpecialRequest from '../components/SpecialRequest';
 
 const RecipeShowPageContainer = () => {
-  const { ingredients, dispatch } = useContext(IngredientsContext);
 
   return(
-  <div>
-      <IngredientList ingredients={ingredients}/>
-      {/* <SpecialRequest/> */}
-    </div>
-  );
+    <div>
+      <IngredientList/>
+      <SpecialRequest/>
+      </div>  );
 };
 
 export default RecipeShowPageContainer;

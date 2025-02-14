@@ -68,3 +68,4 @@ gem "devise"
 gem "font-awesome-sass", "~> 6.7"
 gem "simple_form", github: "heartcombo/simple_form"
 gem 'dotenv-rails'
+gem 'ruby-openai'
