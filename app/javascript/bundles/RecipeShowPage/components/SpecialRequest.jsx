@@ -2,7 +2,7 @@ import React from 'react';
 import { useIngredients } from '../ingredientContext';
 
 const SpecialRequest = () => {
-  const requests = ['high protein', 'post workout', 'low carbs', 'vegetarian']
+  const requests = ['High protein', 'Post workout', 'Low carbs', 'Vegetarian']
   const {state, dispatch} = useIngredients();
   const ingredientList = state.ingredients;
   const handleSubmit = async (e) => {
@@ -10,9 +10,11 @@ const SpecialRequest = () => {
     const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
     const formData = new FormData(e.target);
     const params = {
-      ingredients: ingredientList,
       portion: formData.get('portion'),
-      requests: formData.getAll('selectedRequests')
+      initialCalories: state.calories,
+      initialProtein: state.protein,
+      requests: formData.getAll('selectedRequests'),
+      ingredients: ingredientList,
     }
     const response = await fetch("/api/customization", {
       method: "POST",
@@ -22,33 +24,41 @@ const SpecialRequest = () => {
       },
       body: JSON.stringify(params)
     });
-    console.log('Raw response:', response);
     if (!response.ok) {
       throw new Error('Failed to get customized ingredients');}
-    const customizedIngredients = await response.json();
+    const parsedResponse = await response.json();
+    const customizedIngredients = parsedResponse.ingredients;
+    const customizedCalories = parsedResponse.calories;
+    const customizedProtein = parsedResponse.protein;
     console.log('Customized ingredients', customizedIngredients);
     dispatch({ type: 'UPDATE_INGREDIENTS', payload: customizedIngredients });
+    dispatch({ type: 'UPDATE_PORTION', payload: parseInt(formData.get('portion')) });
+    dispatch({ type: 'UPDATE_REQUESTS', payload: formData.getAll('selectedRequests') });
+    dispatch({ type: 'UPDATE_CALORIES', payload: customizedCalories });
+    dispatch({ type: 'UPDATE_PROTEIN', payload: customizedProtein });
+
 
   }
 
   return(
-<div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
-  <form
-  onSubmit={handleSubmit}
-  className="space-y-4"
-  >
-    <div className="flex flex-col">
-      <label className="block text-sm font-medium text-gray-700 mb-1">
-        Portion size:
-        <input
-          type="number"
-          name="portion"
-          defaultValue="1"
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-        />
-      </label>
-    </div>
+<div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md my-8">
+  <h3 className="text-center text-lg font-semibold text-brand-green mb-4">
+    Want to customise your meal?
+  </h3>
 
+  <form onSubmit={handleSubmit} className="space-y-6">
+    {/* Portion size with inline layout */}
+    <div className="flex items-center space-x-4">
+      <label className="text-brand-green font-medium whitespace-nowrap">
+        Portion size:
+      </label>
+      <input
+        type="number"
+        name="portion"
+        defaultValue="1"
+        className="w-20 rounded-md border-gray-300 shadow-sm focus:border-brand-orange focus:ring-brand-orange"
+      />
+    </div>
     <div className="flex">
     {requests.map(request => (
         <label key={request} className="flex items-center">
@@ -56,16 +66,17 @@ const SpecialRequest = () => {
             type="checkbox"
             name="selectedRequests"
             value={request}
-            className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-2"
+            className="rounded border-gray-300 text-blue-600 font-medium focus:ring-blue-500 mr-2"
           />
           <span className="text-sm text-gray-700">{request}</span>
         </label>
       ))}
     </div>
 
+
     <button
       type="submit"
-      className="w-full bg-black text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+      className="w-full bg-brand-orange text-white py-2 px-4 rounded-md hover:bg-brand-green focus:outline-none focus:ring-2 focus:ring-brand-orange focus:ring-offset-2 transition-colors font-medium"
     >
       Customize
     </button>

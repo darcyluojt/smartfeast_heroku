@@ -1,5 +1,6 @@
 <head>
 <%= javascript_pack_tag 'recipe-show-page-bundle' %>
+
 </head>
 <div class="mx-auto px-4 w-11/12 max-w-md" style="min-height:85vh">
   <div class="recipe_header space-y-6 py-8">
@@ -7,21 +8,34 @@
       <%= @recipe.name %>
     </h1>
 
-<%= image_tag @recipe.thumbnail, class: "w-48 md:w-56 lg:w-64 h-48 md:h-56 lg:h-64 mx-auto object-cover rounded-full shadow-md" %>
-</div>
+    <%= image_tag @recipe.thumbnail, class: "w-48 md:w-56 lg:w-64 h-48 md:h-56 lg:h-64 mx-auto object-cover rounded-full shadow-md" %>
+  </div>
 
+  <div data-controller='tabs'>
+    <div class="tabs flex justify-center space-x-4">
+      <button
+      data-action="click->tabs#toggle"
+      data-tabs-target="ingredients"
+      class="text-lg md:text-xl font-semibold text-gray-700 hover:text-pink-500 focus:outline-none active:text-pink-500">Ingredients</button>
+      <button
+      data-action="click->tabs#toggle"
+      data-tabs-target="steps"
+      class="text-lg md:text-xl font-semibold text-gray-700 hover:text-pink-500 focus:outline-none active:text-pink-500">Steps</button>
+    </div>
 
-<%= react_component("RecipeShowPageApp", {props: @ingredients, className: "w-full max-w-sm rounded-xl px-4", prerender: false}) %>
+    <div data-tabs-target="ingredientsTab">
+      <%= react_component("RecipeShowPageApp", {props: @ingredients, className: "w-full max-w-sm rounded-xl px-4", prerender: false}) %>
+    </div>
 
-
-<div class="w-11/12 max-w-md">
-<ol class="space-y-4 list-none">
-  <% @steps.each_with_index do |step, index| %>
-    <li class="text-base md:text-lg leading-relaxed flex">
-      <span class="text-pink-500 mr-2"><%= index + 1 %>. </span>
-      <span class="text-gray-700"><%= step %></span>
-    </li>
-  <% end %>
-</ol>
-</div>
+    <div data-tabs-target="stepsTab" class="w-11/12 max-w-md hidden">
+      <ol class="space-y-4 list-none">
+        <% @steps.each_with_index do |step, index| %>
+          <li class="text-base md:text-lg leading-relaxed flex">
+            <span class="text-pink-500 mr-2"><%= index + 1 %>. </span>
+            <span class="text-gray-700"><%= step %></span>
+          </li>
+        <% end %>
+      </ol>
+    </div>
+  </div>
 </div>

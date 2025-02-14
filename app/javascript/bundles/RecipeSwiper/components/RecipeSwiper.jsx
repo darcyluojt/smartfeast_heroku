@@ -93,7 +93,7 @@ const RecipeSwiper = ({ initialRecipe, nextUrl }) => {
 
   return (
     <div {...handlers} style={style}>
-      <a href={link}  className="recipe-card group relative block h-full
+      <a data-turbo='false' href={link}  className="recipe-card group relative block h-full
       overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300" style={linkStyle}>
         <div className="relative p-4 sm:p-6 lg:p-8 bg-black bg-opacity-25 rounded-xl">
           <p className="text-xl font-bold text-white sm:text-2xl text-center drop-shadow-xl">{currentRecipe.name}</p>

@@ -3,17 +3,21 @@ import RecipeShowPageContainer from '../containers/RecipeShowPageContainer';
 import { IngredientsProvider } from '../ingredientContext';
 
 const RecipeShowPageApp = (props) => {
-  // console.log("Props in RecipeShowPageApp:", props);
+  console.log("Props in RecipeShowPageApp:", props);
   const ingredientsList = props.ingredients_recipes;
+  const portion = props.servings;
+  const protein = props.protein;
+  const calories = props.calories;
   const displayList = ingredientsList.map(ingredient=>({
-    id:   ingredient.id,
     name: ingredient.ingredient.name,
-    calories_per_100g: ingredient.ingredient.calories_unit,
-    protein_per_100g: ingredient.ingredient.protein_unit,
-    quantity: ingredient.quantity,
-    unit: ingredient.unit}));
+    quantity: ingredient.quantity}));
+
   return (
-    <IngredientsProvider initialIngredients={displayList}>
+    <IngredientsProvider
+    initialIngredients={displayList}
+    initialPortion={portion}
+    initialProtein={protein}
+    initialCalories={calories}>
       <RecipeShowPageContainer/>
     </IngredientsProvider>
 

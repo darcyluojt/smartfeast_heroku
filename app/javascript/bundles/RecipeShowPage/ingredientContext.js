@@ -12,11 +12,13 @@ export function useIngredients() {
   return context;
 }
 
-export function IngredientsProvider({ initialIngredients, children }) {
+export function IngredientsProvider({ initialIngredients, initialPortion, initialCalories, initialProtein, children }) {
   const initialState = {
     ingredients: initialIngredients,
-    specialRequests: [],
-    portionSize: 1,
+    requests: [],
+    portion: initialPortion,
+    protein: initialProtein,
+    calories: initialCalories
   }
   const [state, dispatch] = useImmerReducer(ingredientsReducer, initialState);
 
@@ -32,7 +34,20 @@ function ingredientsReducer(draft,action){
       case 'UPDATE_INGREDIENTS':
         draft.ingredients = action.payload;
         break;
+      case 'UPDATE_PORTION':
+        draft.portion = action.payload;
+        break;
+      case 'UPDATE_REQUESTS':
+        draft.requests = action.payload;
+        break;
+      case 'UPDATE_CALORIES':
+        draft.calories = action.payload;
+        break;
+      case 'UPDATE_PROTEIN':
+        draft.protein = action.payload;
+        break;
       default:
         return draft;
     }
+
   }

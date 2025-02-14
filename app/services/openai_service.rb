@@ -1,13 +1,28 @@
 class OpenaiService
-  def self.customization(ingredients,portion,requests)
+  def self.customization(ingredients, portion, requests, initial_calories, initial_protein)
     client = OpenAI::Client.new
     prompt = <<~PROMPT
-      You are a reasonable and responsible nutrition expert, your job is to customize the ingredient list based on the portion size and user needs without massively changing the recipe.
-       - Portion: #{portion}
+      This is the ingredinent list for a recipe containing #{initial_calories} calories and #{initial_protein}grams of protein.
+      - Ingredient list: #{ingredients}
+      Adjust the ingredient list based on the portion size and user needs below
+       - Portion: #{portion} average healthy adult(s). Each eat 450~600 calories per meal.
        - User needs: #{requests}
-       - Ingredients list: #{ingredients}
-      Skip your analyzing process. Only render back the ingredient list with the same json format but adjusting the ingredient list based on the portion size and users' needs. Nothing else.
+      Based on the adjust ingredient list, calculate the total calories and protein for the new meal. Skip the analysing process. Only return back the adjusted calories, protein and ingredient list in a JSON object. See example below:
+      {
+      "calories": 1500,
+      "protein": 75,
+      "ingredients": [
+    {
+      "name": "Olive Oil",
+      "quantity": "2 tbs"
+    },
+    {
+      "name": "Onion",
+      "quantity": "1 sliced"
+  }]
+      }
     PROMPT
+    Rails.logger.info(prompt)
     response = client.chat(
       parameters: {
         model: "gpt-4o-mini",
@@ -15,6 +30,27 @@ class OpenaiService
         temperature: 0.9})
 
     response["choices"][0]["message"]["content"]
+  end
+
+  def self.estimation(recipe)
+    client = OpenAI::Client.new
+    prompt = <<~PROMPT
+      You are a responsible nutrition expert, your job is to estimate the nutritional values of a recipe. Here is the recipe:
+      #{recipe}
+      Skip your analyzing process. Only render back estimated servings for an average healthy adult who eats 450 - 600 cal per meal, total calories(kcal) and total protein(g) in json format. See example below. Nothing else.
+      {
+      "servings": 3,
+      "calories": 1500,
+      "protein": 50
+      }
+    PROMPT
+    response = client.chat(
+      parameters: {
+        model: "gpt-4o-mini",
+        messages: [{role: "user", content: prompt}],
+        temperature: 0.9})
+    response = response["choices"][0]["message"]["content"]
+    JSON.parse(response, symbolize_names: true)
   end
 
   # def self.get_recommendations(profile_data)
