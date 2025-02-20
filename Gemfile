@@ -60,7 +60,7 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "tailwindcss-rails", "~> 3.2"
+gem "tailwindcss-rails", "~> 4.1"
 gem 'httparty'
 gem "shakapacker"
 gem "react_on_rails", "14.0.5"
